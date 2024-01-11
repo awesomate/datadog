@@ -10,7 +10,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: gha-runner-scale-set
     steps:
-    - run: echo "Run Kubernettes instalation"
+    - run: sudo apt-get -y install zip
     - uses: cschleiden/replace-tokens@v1
       with:
         tokenPrefix: '${'

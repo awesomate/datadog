@@ -10,17 +10,22 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: gha-runner-scale-set
     steps:
-    - run: echo "Run Kubernettes instalation"
+    - name: Checkout
+      uses: actions/checkout@v4
+    - run: ls
+    - run: sudo apt-get -y update
+    - run: sudo apt-get -y install zip
+    - run: echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > kubeconfig.yaml
     - uses: cschleiden/replace-tokens@v1
       with:
         tokenPrefix: '${'
         tokenSuffix: '}'
         files: '["**/*.yaml"]'
     - name: Helm tool installer
-      uses: Azure/setup-helm@v3   
-    - run: helm repo add datadog https://helm.datadoghq.com
-    - uses: actions-hub/kubectl@master
-      env:
-        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      uses: Azure/setup-helm@v3
       with:
-        args: get pods
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - run: helm repo add datadog https://helm.datadoghq.com
+
+    - run: helm upgrade --install --cleanup-on-fail --namespace default datadog-agent -f values.yaml --set targetSystem=linux datadog/datadog --kubeconfig kubeconfig.yaml
+  

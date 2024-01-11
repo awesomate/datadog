@@ -1,0 +1,6 @@
+datadog:
+  apiKeyExistingSecret: ${DATADOG_API_KEY}
+  appKeyExistingSecret: ${DATADOG_APP_KEY}
+  site: datadoghq.com
+  kubeStateMetricsCore:
+    enabled: true

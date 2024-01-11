@@ -7,7 +7,7 @@ env:
   DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
 
 jobs:
-  Explore-GitHub-Actions:
+  Deploy-Cluster:
     runs-on: gha-runner-scale-set
     steps:
     - name: Checkout

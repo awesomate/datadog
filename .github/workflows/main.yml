@@ -12,18 +12,17 @@ jobs:
     steps:
     - run: sudo apt-get -y update
     - run: sudo apt-get -y install zip
+    - run: echo ${{ secrets.KUBE_CONFIG }} > kubeconfig.yaml
     - uses: cschleiden/replace-tokens@v1
       with:
         tokenPrefix: '${'
         tokenSuffix: '}'
-        files: '["**/*.yaml"]'
+        files: '["*.yaml"]'
     - name: Helm tool installer
       uses: Azure/setup-helm@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
     - run: helm repo add datadog https://helm.datadoghq.com
-    - uses: actions-hub/kubectl@master
-      env:
-        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-      with:
-        args: get pods
+
+    - run: helm upgrade --install --cleanup-on-fail datadog-agent -f values.yaml --set targetSystem=linux datadog/datadog --kubeconfig kubeconfig.yaml
+  

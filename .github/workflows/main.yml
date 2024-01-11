@@ -7,8 +7,8 @@ jobs:
     runs-on: gha-runner-scale-set
     steps:
     - run: echo "Run Kubernettes instalation"
-    - uses: docker-practice/actions-setup-docker@master
-      timeout-minutes: 12
+    - name: Docker Setup Docker
+      uses: crazy-max/ghaction-setup-docker@v3.0.0
     - uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}

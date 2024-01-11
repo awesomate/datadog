@@ -10,6 +10,9 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: gha-runner-scale-set
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - run: ls
     - run: sudo apt-get -y update
     - run: sudo apt-get -y install zip
     - run: echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > kubeconfig.yaml
@@ -17,7 +20,7 @@ jobs:
       with:
         tokenPrefix: '${'
         tokenSuffix: '}'
-        files: '["*.yaml"]'
+        files: '["**/*.yaml"]'
     - name: Helm tool installer
       uses: Azure/setup-helm@v3
       with:

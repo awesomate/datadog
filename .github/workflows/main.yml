@@ -12,7 +12,7 @@ jobs:
     steps:
     - run: sudo apt-get -y update
     - run: sudo apt-get -y install zip
-    - run: echo ${{ secrets.KUBE_CONFIG }} > kubeconfig.yaml
+    - run: echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > kubeconfig.yaml
     - uses: cschleiden/replace-tokens@v1
       with:
         tokenPrefix: '${'

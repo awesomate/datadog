@@ -7,8 +7,6 @@ jobs:
     runs-on: gha-runner-scale-set
     steps:
     - run: echo "Run Kubernettes instalation"
-    - name: Docker Setup Docker
-      uses: crazy-max/ghaction-setup-docker@v3.0.0
     - uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}

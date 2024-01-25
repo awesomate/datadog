@@ -13,3 +13,6 @@ datadog:
   sbom:
     containerImage:
       enabled: true
+  env: 
+  - name: DD_KUBERNETES_NODE_LABEL_AS_CLUSTER_NAME
+    value: "default"

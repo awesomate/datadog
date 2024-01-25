@@ -2,8 +2,14 @@ datadog:
   apiKeyExistingSecret: datadog-secret
   appKeyExistingSecret: datadog-secret
   site: datadoghq.com
+  clusterName: default
   processAgent:
     enabled: true
+    processCollection: true
+  clusterAgent:
+    enabled: true
+    metricsProvider:
+      enabled: true
   orchestratorExplorer:
     enabled: true
   kubeStateMetricsCore:
@@ -13,6 +19,3 @@ datadog:
   sbom:
     containerImage:
       enabled: true
-  env: 
-  - name: DD_KUBERNETES_NODE_LABEL_AS_CLUSTER_NAME
-    value: "default"

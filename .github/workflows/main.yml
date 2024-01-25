@@ -27,5 +27,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
     - run: helm repo add datadog https://helm.datadoghq.com
 
+    - run: ls
+
     - run: helm upgrade --install --cleanup-on-fail --namespace default datadog-agent -f values.yaml --set targetSystem=linux datadog/datadog --kubeconfig kubeconfig.yaml
   
